@@ -1,0 +1,26 @@
+.list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 10px;
+  margin: 0 auto;
+}
+
+.noContacts {
+  grid-column: span 2; 
+  text-align: center;
+  font-size: 18px;
+  color: #6c757d;
+}
+
+@media (max-width: 768px) {
+  .list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .list {
+    grid-template-columns: 1fr; 
+  }
+}
