@@ -2,10 +2,10 @@ import { useDispatch } from 'react-redux';
 import styles from './Contact.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone, faUserCircle } from '@fortawesome/free-solid-svg-icons';
-import { deleteContact } from '../../redux/contactsSlice'; 
+import { deleteContact } from '../../redux/contactsOps'; 
 
 const Contact = ({ id, name, number }) => {
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
   const handleDelete = () => {
     dispatch(deleteContact(id));

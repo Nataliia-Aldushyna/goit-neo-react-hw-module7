@@ -1,38 +1,46 @@
-import { useSelector, useDispatch } from 'react-redux'; 
-import styles from './ContactList.module.css';
-import Contact from '../Contact/Contact';
-import { deleteContact, selectContacts } from '../../redux/contactsSlice'; 
+import { useSelector, useDispatch } from 'react-redux';
 import { selectNameFilter } from '../../redux/filtersSlice'; 
+import { deleteContact } from '../../redux/contactsOps'; 
+import Contact from '../Contact/Contact'; 
+import styles from './ContactList.module.css'; 
 
 const ContactList = () => {
-  const contacts = useSelector(selectContacts); 
-  const filter = useSelector(selectNameFilter); 
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
-  const filteredContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
+  const filter = useSelector(selectNameFilter) || ''; 
+  const contacts = useSelector((state) => state.contacts.items) || []; 
+  const loading = useSelector((state) => state.contacts.loading); 
+  const error = useSelector((state) => state.contacts.error); 
+
+
+  const filteredContacts = contacts.filter((contact) =>
+    contact.name?.toLowerCase().includes(filter.toLowerCase())
   );
-
-  const handleDeleteContact = (id) => {
+  
+  const handleDelete = (id) => {
     dispatch(deleteContact(id)); 
   };
 
   return (
-    <ul className={styles.list}>
-      {filteredContacts.length > 0 ? ( 
-        filteredContacts.map(({ id, name, number }) => (
-          <Contact
-            key={id}
-            id={id} 
-            name={name}
-            number={number}
-            onDelete={() => handleDeleteContact(id)} 
-          />
-        ))
+    <div className={styles.contactList}>
+      {loading && <p className={styles.loading}>Loading...</p>}
+      {error && <p className={styles.error}>Error: {error}</p>}
+      {filteredContacts.length > 0 ? (
+        <ul className={styles.list}>
+          {filteredContacts.map((contact) => (
+            <Contact
+              key={contact.id}
+              id={contact.id}
+              name={contact.name}
+              number={contact.number}
+              onDelete={handleDelete}
+            />
+          ))}
+        </ul>
       ) : (
-        <p className={styles.noContacts}>Contacts not found!</p>
+        <p className={styles.noContacts}>No contacts found</p>
       )}
-    </ul>
+    </div>
   );
 };
 
