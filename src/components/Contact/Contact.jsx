@@ -1,8 +1,8 @@
 import { useDispatch } from 'react-redux';
-import styles from './Contact.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { deleteContact } from '../../redux/contactsOps'; 
+import styles from './Contact.module.css';
 
 const Contact = ({ id, name, number }) => {
   const dispatch = useDispatch();

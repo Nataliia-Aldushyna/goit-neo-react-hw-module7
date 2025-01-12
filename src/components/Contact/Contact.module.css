@@ -47,6 +47,8 @@
 .number {
   margin: 0;
   font-size: 16px;
+  color: #333;
+  overflow-wrap: break-word;
 }
 
 .button {
